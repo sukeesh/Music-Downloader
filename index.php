@@ -1,25 +1,4 @@
-<?php
-    
-    $flag = 0;
-    
-    if(isset($_POST['msubmit']) && $_POST['msubmit'] != ''){
-        $searchString   = $_POST['searchString'];
-        $correctString  = str_replace(" ","+",$searchString);
-        $youtubeUrl     = "https://www.youtube.com/results?search_query=". $correctString;
-        $getHTML        = file_get_contents($youtubeUrl);
-        $pattern        = '/<a href="\/watch\?v=(.*?)"/i';
 
-        if(preg_match($pattern, $getHTML, $match)){
-            $videoID    = $match[1];
-        }
-        else{
-            echo "Something went wrong!";
-            exit;
-        }
-        $flag = 1;
-    }
-
-?>
 
 <!DOCTYPE HTML>
 <html>
@@ -40,25 +19,47 @@
         }
 
     </style>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function($){
+    	$("input#sButton").click(function(){
+    		var resultDiv = $("div#searchResults");
+    		resultDiv.html('<img src="loader.gif" alt="loading" />');
+    	    $.post("get_results.php",
+            {
+                searchString: $("input#searchString").val()
+            },
+            function(data,status){
+                
+                if(status=='success')
+                {
+                	resultDiv.html(data);
+                }
+                else
+                {
+                    resultDiv.html('Technical Error! :(');
+                }
+                
+            });
+    	});
+    	$("input#searchString").keypress(function(e) {
+    		if(e.which == 13) {
+    		$("input#sButton").click();
+    		}
+		});
+    });
+    </script>
     </head>
     <body>
 
-    Hi there, <br> <br> <br>
+    Hi there, <br><br>
 
-    <form method="post" action="index.php" accept-charset="utf-8">
-        <b> Enter Songname / Lyrics or whatever.. </b><br>
-        <br> <input type="text" name="searchString" />
-        <input type="submit" name="msubmit" value="Search" />
-    </form>
-
-    <?php 
-        if ($flag == 1){
-            echo '<iframe style="width:230px;height:60px;border:0;overflow:hidden;" scrolling="no" src="//www.youtubeinmp3.com/widget/button/?video=https://www.youtube.com/watch?v='. $videoID .'"&color=c91818>';
-            $flag = 0;
-        }
-    ?>
-
+    <b> Enter Songname / Lyrics or whatever.. </b><br>
+    <br> <input type="text" name="searchString" id="searchString" />
+    <input id="sButton" type="button" name="msubmit" value="Search" />
+    <br>
+    <div id="searchResults" align="center"></div>
+    <br>
     <a class="github-button" href="https://github.com/sukeesh/Music-Downloader" data-icon="octicon-star" data-style="mega" data-count-href="/sukeesh/Music-Downloader/stargazers" data-count-api="/repos/sukeesh/Music-Downloader#stargazers_count"     data-count-aria-label="# stargazers on GitHub" aria-label="Star sukeesh/Music-Downloader on GitHub">Star</a> <br>
 
     &copy; <a href="http://www.sukeesh.me/">Sukeesh</a>
