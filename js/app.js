@@ -3,7 +3,7 @@ function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{
 $(function() {
     $("form").on("submit", function(e) {
        e.preventDefault();
-
+        $("#results").html('<img src="js/loader.gif" alt="loading" />');
        var request = gapi.client.youtube.search.list({
             part: "snippet",
             type: "video",
@@ -11,7 +11,6 @@ $(function() {
             maxResults: 5,
             order: "viewCount"
        });
-
        request.execute(function(response) {
           var results = response.result;
           $("#results").html("");
@@ -23,8 +22,6 @@ $(function() {
           resetVideoHeight();
        });
     });
-    
-    $(window).on("resize", resetVideoHeight);
 });
 
 function init() {
