@@ -8,7 +8,7 @@ $(function() {
             part: "snippet",
             type: "video",
             q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-            maxResults: 6,
+            maxResults: 3,
             order: "relevance"
        });
        request.execute(function(response) {

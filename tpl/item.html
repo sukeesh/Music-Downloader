@@ -1,6 +1,6 @@
 <div class="item">
 
-	<ul id="authors"></ul>
+	<ul id="songs"></ul>
 
 	<script type="text/javascript">
 		function createNode(element) {
@@ -11,17 +11,19 @@
 		return parent.appendChild(el);
 		}
 
-		const ul = document.getElementById('authors');
+		var ul = document.getElementById('songs');
 		const url= 'http://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v={{videoid}}';
 		fetch(url)
 		.then((resp) => resp.json())
 		.then(function(data) {
-		let authors = data;
-		return authors.map(function(author) {
-		  let ah = createNode('a');
-		  ah.href = author.link;
-		  append(ul, ah);
-		})
+		var authors = data;
+		var ah = createNode('a');
+		var att = document.createAttribute("class");
+		att.value = "waves-effect waves-light btn #ff6f00 amber darken-4";
+		ah.href = authors["link"];
+		ah.innerHTML = authors["title"];
+		ah.setAttributeNode(att);
+		append(ul, ah);
 		})
 		.catch(function(error) {
 			console.log(error);
