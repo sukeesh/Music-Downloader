@@ -1,6 +1,30 @@
 <div class="item">
 
-	<iframe style="width:230px;height:45px;border:0;overflow:hidden;" scrolling="no" src="//www.youtubeinmp3.com/widget/button/?video=https://www.youtube.com/watch?v={{videoid}}">
+	<ul id="authors"></ul>
 
+	<script type="text/javascript">
+		function createNode(element) {
+		  return document.createElement(element);
+		}
+
+		function append(parent, el) {
+		return parent.appendChild(el);
+		}
+
+		const ul = document.getElementById('authors');
+		const url= 'http://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v={{videoid}}';
+		fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data) {
+		let authors = data;
+		return authors.map(function(author) {
+		  let ah = createNode('a');
+		  ah.href = author.link;
+		  append(ul, ah);
+		})
+		})
+		.catch(function(error) {
+			console.log(error);
+		}); 
+	</script>
 </div>
-
