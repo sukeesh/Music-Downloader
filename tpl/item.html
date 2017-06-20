@@ -18,12 +18,14 @@
 		.then(function(data) {
 		var authors = data;
 		var ah = createNode('a');
+		var li = createNode('li');
 		var att = document.createAttribute("class");
 		att.value = "waves-effect waves-light btn #ff6f00 amber darken-4";
 		ah.href = authors["link"];
 		ah.innerHTML = authors["title"];
 		ah.setAttributeNode(att);
-		append(ul, ah);
+		append(li, ah);
+		append(ul, li);
 		})
 		.catch(function(error) {
 			console.log(error);
