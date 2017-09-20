@@ -6,7 +6,7 @@ Search, Download and Enjoy!
 
 ![DemoScreenshot](http://i.imgur.com/IUXoaPF.png)
 
-See it in action here : [Downloader](http://104.236.135.241/music/)
+See it in action here : [Downloader](http://sukeesh.tech)
 
 ## Disclaimer
 Downloading copyrighted material may be illegal in your country. Use at your own risk.
