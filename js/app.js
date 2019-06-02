@@ -24,7 +24,7 @@ $(function() {
 });
 
 function init() {
-    gapi.client.setApiKey("AIzaSyDJzmBQREJ-RGJFY0cPvvVGLv02FZMQbfc");
+    gapi.client.setApiKey("");   // SET API KEY HERE
     gapi.client.load("youtube", "v3", function() {
     });
 }
